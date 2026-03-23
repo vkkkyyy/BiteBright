@@ -68,59 +68,100 @@ catch(error){
 
 
   return (
-    <div className='row justify-content-center col-mt-4'>
-      <div className='col-md-6 p-4 card shadow'>
-        <h3>Welcome to Add a meal</h3>
+  <div 
+  className="row justify-content-center align-items-center min-vh-100"
+  style={{
+    backgroundImage: "url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0')",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
+  }}
+>
+  <div className="col-md-6">
+    <div 
+      className="card shadow-lg border-0 rounded-4 p-4"
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.95)" }}
+    >
 
-        {/* bind the loading hook */}
-         {loading && <Loader />}
-
-         <h3 className='text-success'> {success}  </h3>
-        <h4 className="text-danger">{error}</h4>
-
-        <form onSubmit={handleSubmit}>
-          <input type="text" 
-          placeholder='Enter the Meal Name'
-          className='form-control'
-          required
-          value={product_name}
-          onChange={(e)=>setProductName(e.target.value)}/> <br />
-
-          {/* {product_name} */}
-
-          <input type="text"
-          placeholder='Enter the meal description '
-          className='form-control'
-          required
-          value={product_description}
-          onChange={(e)=>setProductDescription(e.target.value)} /> <br />
-          {/* {product_description} */}
-
-          <input type="number"
-          placeholder='Enter the price of the meal'
-          className='form-control' 
-          required 
-          value={product_cost}
-          onChange={(e)=>setProductCost(e.target.value)}/> <br />
-          {/* {product_cost} */}
-
-          <label className='text-primary'>Product Photo</label>
-          <input type="file" 
-          className='form-control'
-          required
-          accept='image/*'
-          onChange={(e)=>setProductPhoto(e.target.files[0])}/>
-           <br />
-
-          
-
-          <input type="submit"
-          value="Add meal"
-          className='btn btn-outline-primary' />
-
-        </form>
+      <div className="text-center mb-4">
+        <h2 style={{ fontFamily: "serif", color: "#8B0000" }}>
+          🍽️ Add a New Delicacy
+        </h2>
+        <p className="text-muted">Craft and showcase your delicious meals</p>
       </div>
+
+      {/* Loader */}
+      {loading && <Loader />}
+
+      {/* Messages */}
+      {success && <div className="alert alert-success text-center py-2">{success}</div>}
+      {error && <div className="alert alert-danger text-center py-2">{error}</div>}
+
+      <form onSubmit={handleSubmit}>
+
+        <div className="mb-3">
+          <input 
+            type="text"
+            placeholder="🍝 Meal Name"
+            className="form-control form-control-lg rounded-3"
+            required
+            value={product_name}
+            onChange={(e)=>setProductName(e.target.value)}
+          />
+        </div>
+
+        <div className="mb-3">
+          <input
+            type="text"
+            placeholder="📝 Meal Description"
+            className="form-control form-control-lg rounded-3"
+            required
+            value={product_description}
+            onChange={(e)=>setProductDescription(e.target.value)}
+          />
+        </div>
+
+        <div className="mb-3">
+          <input
+            type="number"
+            placeholder="💰 Price (KES)"
+            className="form-control form-control-lg rounded-3"
+            required 
+            value={product_cost}
+            onChange={(e)=>setProductCost(e.target.value)}
+          />
+        </div>
+
+        <div className="mb-3">
+          <label className="fw-semibold" style={{ color: "#8B0000" }}>
+            📸 Upload Meal Photo
+          </label>
+          <input 
+            type="file"
+            className="form-control rounded-3"
+            required
+            accept="image/*"
+            onChange={(e)=>setProductPhoto(e.target.files[0])}
+          />
+        </div>
+
+        <div className="d-grid">
+          <button 
+            className="btn btn-lg rounded-3 fw-semibold"
+            style={{
+              backgroundColor: "#8B0000",
+              color: "white"
+            }}
+          >
+            🍷 Add Meal
+          </button>
+        </div>
+
+      </form>
     </div>
+  </div>
+</div>
+
+
   )
 }
 

@@ -56,37 +56,84 @@ const GetProducts = () => {
 
 
   return (
-    <div className='row'>
-      <h2 className="text-secondary">Available Delicacies</h2>
-      {loading && <Loader/>}
-      <h4 className="text-danger">{error}</h4>
+  <div 
+  className="container-fluid py-5"
+  style={{
+    backgroundImage: "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    minHeight: "100vh"
+  }}
+>
 
-         {/*map the products fetched from the API  to the user interface  */}
+  {/* Overlay */}
+  <div style={{ backgroundColor: "rgba(255,255,255,0.9)", padding: "30px", borderRadius: "20px" }}>
 
-         {products.map((product) => (
-          <div className="col-md-3 justify-content mb-3">
+    <h2 
+      className="text-center mb-5"
+      style={{ fontFamily: "serif", color: "#8B0000" }}
+    >
+      🍽️ Available Delicacies
+    </h2>
 
-        <div className="card shadow">
+    {loading && <Loader />}
+    {error && <div className="alert alert-danger text-center">{error}</div>}
 
-          <img src={img_url + product.product_photo} 
-          alt="product name" 
-          className='product_img mt-3' />
+    <div className="row g-4">
 
-          <div className="card-body">
-            <h5 className="text-success">{product.product_name}</h5>
-            <p className="text-dark">{product.product_description.slice(0,100)}...</p>
-            <h4 className="text-warning">KES {product.product_cost}</h4>
+      {products.map((product) => (
+        <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={product.id}>
 
-            <button className="btn btn-outline-info"onClick={()=> navigate("/makepayment",{state :{product}})}>Purchase now</button>
+          <div className="card h-100 border-0 shadow-lg rounded-4 overflow-hidden">
+
+            {/* Image */}
+            <img 
+              src={img_url + product.product_photo} 
+              alt={product.product_name}
+              className="w-100"
+              style={{ height: "200px", objectFit: "cover" }}
+            />
+
+            <div className="card-body d-flex flex-column">
+
+              <h5 
+                className="fw-bold"
+                style={{ color: "#8B0000" }}
+              >
+                {product.product_name}
+              </h5>
+
+              <p className="text-muted flex-grow-1">
+                {product.product_description.slice(0, 90)}...
+              </p>
+
+              <h4 className="fw-semibold text-dark mb-3">
+                KES {product.product_cost}
+              </h4>
+
+              <button 
+                className="btn mt-auto fw-semibold"
+                style={{
+                  backgroundColor: "#8B0000",
+                  color: "white",
+                  borderRadius: "10px"
+                }}
+                onClick={() => navigate("/makepayment", { state: { product } })}
+              >
+                🍷 Order Now
+              </button>
+
+            </div>
           </div>
 
-
         </div>
-      </div>
-         ) )}
-
+      ))}
 
     </div>
+
+  </div>
+</div>
+
   )
 }
 

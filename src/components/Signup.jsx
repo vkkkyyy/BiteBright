@@ -61,59 +61,108 @@ const Signup = () => {
   }
 
   return (
-    <div className='row justify-content-center mt-4'>
-      <div className='card col-md-6 shadow'>
-        <h1 className='text-secondary'>Sign Up</h1>
+  <div 
+  className="row justify-content-center align-items-center min-vh-100"
+  style={{
+    backgroundImage: "url('https://images.unsplash.com/photo-1498654896293-37aacf113fd9')",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
+  }}
+>
+  <div className="col-md-5">
+    <div 
+      className="card shadow-lg border-0 rounded-4 p-4"
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.95)" }}
+    >
 
-        <h5 className="text-warning"> {loading} </h5>
-        <h3 className='text-success'> {success}  </h3>
-        <h4 className="text-danger">{error}</h4>
+      <div className="text-center mb-4">
+        <h2 style={{ fontFamily: "serif", color: "#8B0000" }}>
+          🍰 Join Bite Bright
+        </h2>
+        <p className="text-muted">Create an account to enjoy our delicacies</p>
+      </div>
 
-        <form onSubmit={handleSubmit}> 
+      {/* Status Messages */}
+      {loading && <div className="alert alert-warning text-center py-2">{loading}</div>}
+      {success && <div className="alert alert-success text-center py-2">{success}</div>}
+      {error && <div className="alert alert-danger text-center py-2">{error}</div>}
 
+      <form onSubmit={handleSubmit}> 
 
-          <input type="text"
-          placeholder='Enter the Username'
-          className='form-control'
-          value={username} 
-          onChange={(e)=>setUsername(e.target.value)}
-          required/> <br />
-
-          {/* {username} */}
-
-          <input type="email" 
-          placeholder='Enter the email address'
-          className='form-control'
-          value={email}
-          onChange={(e)=> setEmail(e.target.value)}
-          required/> <br />
-
-          {/* {email} */}
-
-          <input type="password"
-          placeholder='Enter the password'
-          className='form-control'
-          value={password}
-          onChange={(e) =>setPassword(e.target.value)}
-          required /> <br />
-
-          {/* {password} */}
-
-          <input type="tell" 
-          placeholder='Enter phone number'
-          className='form-control'
-          value={phone}
-          onChange={(e)=>setPhone(e.target.value)}
-          required/> <br />
-
-          {/* {phone} */}
-
-          <input type="submit" value="Sign Up" className='btn btn-primary' /><br /> <br />
-
-          Already have an account? <Link to={'/Signin'}>Signin</Link>
-          </form>
+        <div className="mb-3">
+          <input
+            type="text"
+            placeholder="👤 Username"
+            className="form-control form-control-lg rounded-3"
+            value={username}
+            onChange={(e)=>setUsername(e.target.value)}
+            required
+          />
         </div>
+
+        <div className="mb-3">
+          <input
+            type="email"
+            placeholder="📧 Email address"
+            className="form-control form-control-lg rounded-3"
+            value={email}
+            onChange={(e)=> setEmail(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <input
+            type="password"
+            placeholder="🔒 Password"
+            className="form-control form-control-lg rounded-3"
+            value={password}
+            onChange={(e)=>setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <input
+            type="tel"
+            placeholder="📱 Phone number"
+            className="form-control form-control-lg rounded-3"
+            value={phone}
+            onChange={(e)=>setPhone(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="d-grid mb-3">
+          <button 
+            className="btn btn-lg rounded-3 fw-semibold"
+            style={{
+              backgroundColor: "#8B0000",
+              color: "white"
+            }}
+          >
+            🍽️ Sign Up
+          </button>
+        </div>
+
+        <div className="text-center">
+          <small className="text-muted">
+            Already have an account?{" "}
+            <Link 
+              to="/Signin" 
+              className="fw-semibold"
+              style={{ color: "#8B0000" }}
+            >
+              Sign In
+            </Link>
+          </small>
+        </div>
+
+      </form>
     </div>
+  </div>
+</div>
+
   )
 }
 

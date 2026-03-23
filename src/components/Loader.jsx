@@ -3,11 +3,18 @@ import "../css/Loader.css"; // import the external css
 const Loader = () => {
   return (
     <section className="loader">
-      <div className="slider" style={{ "--i": 0 }}></div>
-      <div className="slider" style={{ "--i": 1 }}></div>
-      <div className="slider" style={{ "--i": 2 }}></div>
-      <div className="slider" style={{ "--i": 3 }}></div>
-      <div className="slider" style={{ "--i": 4 }}></div>
+       
+<div class="loader">
+  <span><span></span><span></span><span></span><span></span></span>
+  <div class="base">
+    <span></span>
+    <div class="face"></div>
+  </div>
+</div>
+<div class="longfazers">
+  <span></span><span></span><span></span><span></span>
+</div>
+
     </section>
   );
 };

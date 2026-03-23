@@ -66,44 +66,77 @@ const Signin = () => {
 
 
   return (
-    <div className='row justify-content-center mt-4'>
-      <div className="col-md-6 card shadow p-4">
-        <h1 className='text-secondary'>Sign in </h1>
+    <div className="row justify-content-center align-items-center min-vh-100" 
+     style={{
+       backgroundImage: "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836')",
+       backgroundSize: "cover",
+       backgroundPosition: "center"
+     }}>
 
-        <h5 className="text-info">{loading}</h5>
-        <h3 className="text-success">{success}</h3>
-        <h4 className="text-danger">{error}</h4>
+  <div className="col-md-5">
+    <div className="card border-0 shadow-lg p-4 rounded-4"
+         style={{ backgroundColor: "rgba(255, 255, 255, 0.95)" }}>
 
-        <form onSubmit={handlesubmit}>
-
-
-          <input type="email"
-          placeholder='Enter your Email address here...'
-          className='form-control'
-          required 
-          value ={email}
-          onChange={(e)=>setEmail(e.target.value)}/> <br />
-
-          {/* {email} */}
-
-          <input type="password"
-          placeholder='Enter your password here...'
-          className='form-control' 
-          required
-          value ={password}
-          onChange={(e)=>setPassword(e.target.value)}/> <br />
-
-          {/* {password} */}
-
-          <input type="submit"
-          value="Sign in"
-          className='btn btn-info'/><br></br>
-
-          Don't have an account? <Link to={'/Signup'}>Register</Link>
-
-        </form>
+      <div className="text-center mb-4">
+        <h2 style={{ fontFamily: "serif", color: "#8B0000" }}>
+          🍷 Bite Bright
+        </h2>
+        <p className="text-muted">Sign in to explore our delicacies</p>
       </div>
+
+      {/* Status Messages */}
+      {loading && <div className="alert alert-warning text-center py-2">{loading}</div>}
+      {success && <div className="alert alert-success text-center py-2">{success}</div>}
+      {error && <div className="alert alert-danger text-center py-2">{error}</div>}
+
+      <form onSubmit={handlesubmit}>
+
+        <div className="mb-3">
+          <input
+            type="email"
+            placeholder="📧 Enter your email"
+            className="form-control form-control-lg rounded-3"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        <div className="mb-3">
+          <input
+            type="password"
+            placeholder="🔒 Enter your password"
+            className="form-control form-control-lg rounded-3"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <div className="d-grid mb-3">
+          <button 
+            className="btn btn-lg rounded-3 fw-semibold"
+            style={{
+              backgroundColor: "#8B0000",
+              color: "white"
+            }}>
+            🍽️ Sign In
+          </button>
+        </div>
+
+        <div className="text-center">
+          <small className="text-muted">
+            New here?{" "}
+            <Link to="/Signup" className="fw-semibold" style={{ color: "#8B0000" }}>
+              Create an account
+            </Link>
+          </small>
+        </div>
+
+      </form>
     </div>
+  </div>
+</div>
   )
 }
 
