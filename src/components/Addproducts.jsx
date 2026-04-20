@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Loader from './Loader'
 import axios from 'axios'
+import Category from './Category'
 
 const Addproducts = () => {
 
@@ -9,6 +10,10 @@ const Addproducts = () => {
   const [product_description, setProductDescription]=useState("")
   const [product_cost, setProductCost]= useState("")
   const[product_photo, setProductPhoto]= useState("")
+  const [selectedCategory,setSelectedCategory] = useState("")
+
+   //Define the list to pass into the Category component
+  const categoryList = ["Appetizers", "Main Course", "Desserts", "Drinks", "Specials"];
 
   //declare three additional hooks to manage the state of your application
   const[loading , setLoading]= useState(false);
@@ -31,6 +36,7 @@ formdata.append("product_name" , product_name);
 formdata.append("product_description" , product_description);
 formdata.append("product_cost" , product_cost);
 formdata.append("product_photo", product_photo);
+formdata.append("category", selectedCategory); 
 
 //interact with axios to help you use the method post
 const response = await axios.post("https://victoria.alwaysdata.net/api/add_product" , formdata)
@@ -46,6 +52,7 @@ setProductName("");
 setProductDescription("");
 setProductCost("");
 setProductPhoto("");
+setSelectedCategory(""); 
 
 e.target.reset()//to clear the file and any other details
 
@@ -108,6 +115,12 @@ catch(error){
             onChange={(e)=>setProductName(e.target.value)}
           />
         </div>
+
+        <Category 
+              categories={categoryList} 
+              selectedCategory={selectedCategory} 
+              onChange={setSelectedCategory} 
+            />
 
         <div className="mb-3">
           <input
