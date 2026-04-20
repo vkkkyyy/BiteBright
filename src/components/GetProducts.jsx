@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Loader from './Loader';
 import { useNavigate } from 'react-router-dom';
+import FoodChatbot from "../components/FoodChatbot";
+
 
 const GetProducts = () => {
   
@@ -132,6 +134,7 @@ const GetProducts = () => {
     </div>
 
   </div>
+  <FoodChatbot />
 </div>
 
   )

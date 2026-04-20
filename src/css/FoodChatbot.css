@@ -1,0 +1,116 @@
+/* Floating chat button (MAROON) */
+.chat-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #8B0000; /* maroon */
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 9999;
+}
+
+/* Chat container */
+.chatbot-container {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 320px;
+  height: 420px;
+  background: #f5f5f5;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  z-index: 9999;
+}
+
+/* Message display area */
+.chat-box {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+}
+
+/* User message */
+.user-msg {
+  background-color: #d1e7dd;
+  padding: 8px;
+  margin: 6px 0;
+  border-radius: 8px;
+  text-align: right;
+  max-width: 80%;
+  margin-left: auto;
+}
+
+/* Bot message */
+.bot-msg {
+  background-color: #f8d7da;
+  padding: 8px;
+  margin: 6px 0;
+  border-radius: 8px;
+  text-align: left;
+  max-width: 80%;
+}
+
+/* Input area */
+.chat-input {
+  display: flex;
+  background: white;
+  padding: 5px;
+}
+
+/* Input field */
+.chat-input input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  outline: none;
+}
+
+/* Send button (MAROON) */
+.chat-input button {
+  background-color: #8B0000;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* Button hover effect */
+.chat-input button:hover {
+  background-color: #5c0000;
+}
+.chat-header {
+  background-color: #8B0000;
+  color: white;
+  padding: 12px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Clear button */
+.clear-btn {
+  background: white;
+  color: #8B0000;
+  border: none;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  background: #f2f2f2;
+}
