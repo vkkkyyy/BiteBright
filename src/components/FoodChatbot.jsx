@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import "../css/FoodChatbot.css";
 
 const FoodChatbot = () => {
+  // the greeting
   const [messages, setMessages] = useState([
     { text: "Hi! Welcome 🍽️ Ask about appetizers, drinks, desserts, main course or specials.", sender: "bot" }
   ]);
 
+  //A boolean - clicking the button it opens 
   const [open, setOpen] = useState(false);
-
+  // A string that tracks what the user is currently typing in the chatbox
   const [input, setInput] = useState("");
   
-  
+  // clear chat function
   const clearChat = () => {
   setMessages([
     {
@@ -130,15 +132,19 @@ const FoodChatbot = () => {
 
     return "Sorry, I didn't understand. Ask about appetizers, drinks, desserts, main course or specials.";
   };
-
+  
+  // defines the function that triggers when a message is submitted
   const handleSend = () => {
+    // to check if the input is empty or just spaces, if it is the fuction stops here
     if (input.trim() === "") return;
 
+    // create a new message object using the text currently in the textbox and labels the sender as the "user"
     const userMessage = {
       text: input,
       sender: "user"
     };
 
+    //
     const botReply = {
       text: getBotResponse(input),
       sender: "bot"
