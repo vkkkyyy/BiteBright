@@ -17,5 +17,6 @@ const Loader = () => {
 
     </section>
   );
+  
 };
 export default Loader;

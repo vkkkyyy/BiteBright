@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react'
 import Loader from './Loader';
 import { useNavigate } from 'react-router-dom';
 import FoodChatbot from "../components/FoodChatbot";
+import Carousel from "./Carousel";
 
 
-const GetProducts = () => {
-  
+const GetProducts = () => { 
   //Initialize hook to hep you manage the state of your application
   const [products, setProducts]= useState([]);
   const[loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ const GetProducts = () => {
   const navigate = useNavigate()
 
   //below we specify the image base url
-  const  img_url=" https://victoria.alwaysdata.net/static/images/"
+  const  img_url="https://victoria.alwaysdata.net/static/images/"
 
 
   //create a function to help you fetch the products from your API
@@ -58,6 +58,12 @@ const GetProducts = () => {
 
 
   return (
+    <>
+
+    {/* 🍽️ Carousel goes FIRST */}
+    <Carousel />
+
+    {/* Main Menu Section */}
   <div 
   className="container-fluid py-5"
   style={{
@@ -69,6 +75,8 @@ const GetProducts = () => {
 >
 
   {/* Overlay */}
+
+  
   <div style={{ backgroundColor: "rgba(255,255,255,0.9)", padding: "30px", borderRadius: "20px" }}>
 
     <h2 
@@ -136,8 +144,7 @@ const GetProducts = () => {
   </div>
   <FoodChatbot />
 </div>
-
-  )
+</>
+  );
 }
-
 export default GetProducts;
