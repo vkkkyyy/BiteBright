@@ -7,6 +7,9 @@ import Carousel from "./Carousel";
 
 
 const GetProducts = () => { 
+  // the search bar
+  const [searchTerm, setSearchTerm] = useState("");
+
   //Initialize hook to hep you manage the state of your application
   const [products, setProducts]= useState([]);
   const[loading, setLoading] = useState(false);
@@ -54,6 +57,10 @@ const GetProducts = () => {
 
   //console.log("The products fetched are:", products)
 
+  const filterProducts=products.filter((product)=>{
+    return product.product_name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
 
 
 
@@ -79,6 +86,19 @@ const GetProducts = () => {
   
   <div style={{ backgroundColor: "rgba(255,255,255,0.9)", padding: "30px", borderRadius: "20px" }}>
 
+    {/* search box */}
+    <div className="row justify-content-center mb-4">
+      <div className="col-md-6">
+        <input
+          type="text"
+          className="form-control shadow-sm"
+          placeholder="Search for a delicacy..."
+          style={{ borderRadius: "20px", padding: "12px 20px" }}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+    </div>
+
     <h2 
       className="text-center mb-5"
       style={{ fontFamily: "serif", color: "#8B0000" }}
@@ -91,7 +111,7 @@ const GetProducts = () => {
 
     <div className="row g-4">
 
-      {products.map((product) => (
+      {filterProducts.map((product) => (
         <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={product.id}>
 
           <div className="card h-100 border-0 shadow-lg rounded-4 overflow-hidden">

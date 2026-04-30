@@ -17,9 +17,10 @@ function App() {
       <div className="App">
       <header className="App-header">
         <h1>Welcome to BiteBright - Every bite brightens your day</h1>
+         <Navbar/>
       </header>
 
-       <Navbar/>
+      
 
       <Routes>
         <Route path='/' element={<GetProducts/>}/>
