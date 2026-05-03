@@ -7,7 +7,7 @@ const ReservationPage = () => {
   // receive data from previous page (Order Now button)
   const location = useLocation();
   const navigate = useNavigate();
-  const product = location.state?.product;
+  const cart = location.state?.cart || [];
 
   //reservation-null , setReservation - is the only function allowed to update that memory
   const [reservation, setReservation] = useState(null);
@@ -49,11 +49,11 @@ const ReservationPage = () => {
             onExpire={() => setReservation(null)}
           />
 
-          {/* go to payment with both product + reservation */}
+          {/* go to payment with both cart + reservation */}
           <button
             onClick={() =>
               navigate("/makepayment", {
-                state: { product, reservation },
+                state: { cart, reservation },
               })
             }
           >
@@ -69,16 +69,9 @@ const ReservationPage = () => {
             
             onClick={() => {
             setReservation(null);
-            }}>
-                Cancel Reservation
+            }}>Cancel Reservation
+            </button>
                 
-                </button>
-
-                {/* clear saved data */}
-                onClick={() => {
-                    localStorage.removeItem("reservation");
-                    setReservation(null);
-                    }}
         </div>
       )}
     </div>

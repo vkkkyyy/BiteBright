@@ -5,166 +5,221 @@ import { useNavigate } from 'react-router-dom';
 import FoodChatbot from "../components/FoodChatbot";
 import Carousel from "./Carousel";
 
-
 const GetProducts = () => { 
+
   // the search bar
   const [searchTerm, setSearchTerm] = useState("");
 
-  //Initialize hook to hep you manage the state of your application
-  const [products, setProducts]= useState([]);
-  const[loading, setLoading] = useState(false);
-  const[error , setError]=useState("");
+  // products state
+  const [products, setProducts] = useState([]);
 
-  //declare the navigate hook
-  const navigate = useNavigate()
+  // cart state
+  const [cart, setCart] = useState([]);
 
-  //below we specify the image base url
-  const  img_url="https://victoria.alwaysdata.net/static/images/"
+  const [loading, setLoading] = useState(false);
+  const [error , setError] = useState("");
 
+  const navigate = useNavigate();
 
-  //create a function to help you fetch the products from your API
-  const fetchProducts = async ()=>{
-    try{
-      //update the loading hook
-      setLoading(true)
+  // to add cart
+  const addToCart = (product) => {
+  setCart((prevCart) => {
+    const existing = prevCart.find(
+      item => item.product_id === product.product_id
+    );
 
-
-      //interact with you end point for fetching the product
-      const response = await axios.get("https://victoria.alwaysdata.net/api/get_products")
-
-      //update the products hook with the response given from the API
-      setProducts(response.data)
-
-      //set the loading hook back to default
-      setLoading(false)
-
+    if (existing) {
+      return prevCart.map(item =>
+        item.product_id === product.product_id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
     }
-    catch(error){
-      //if there is an error:
-      //1. set the loading back to default
-      setLoading(false)
 
-      //update the error hook with a message
-      setError(error.message)
-
-    }
-  }
-
-  //we shall use the useEffect hook that enables us to automatically re-render new features incase of any changes.
-  useEffect(()=> {
-    fetchProducts()
-  },[])//the [] is a trigger effect
-
-  //console.log("The products fetched are:", products)
-
-  const filterProducts=products.filter((product)=>{
-    return product.product_name.toLowerCase().includes(searchTerm.toLowerCase());
+    return [...prevCart, { ...product, quantity: 1 }];
   });
+};
 
+  // ➕ increase quantity
+  const increaseQty = (id) => {
+    setCart(cart.map(item =>
+      item.product_id === id
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    ));
+  };
 
+  // decrease quantity
+  const decreaseQty = (id) => {
+    setCart(cart
+      .map(item =>
+        item.product_id === id
+        ? { ...item, quantity: item.quantity - 1 }
+        : item
+    )
+    .filter(item => item.quantity > 0)
+  );
+};
 
+  // 🗑️ remove item
+  const removeItem = (id) => {
+  setCart(cart.filter(item => item.product_id !== id));
+};
+
+  // total price
+  const total = cart.reduce(
+    (sum, item) => sum + (item.product_cost * item.quantity),
+    0
+  );
+
+  const img_url = "https://victoria.alwaysdata.net/static/images/";
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("https://victoria.alwaysdata.net/api/get_products");
+      setProducts(response.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const filterProducts = products.filter((product) =>
+    product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // order now
+  const handleOrderNow = () => {
+    if (cart.length === 0) {
+      alert("Please add at least one item to cart");
+      return;
+    }
+
+    navigate("/reserve", { state: { cart } });
+  };
 
   return (
     <>
+      <Carousel />
 
-    {/* 🍽️ Carousel goes FIRST */}
-    <Carousel />
+      <div 
+        className="container-fluid py-5"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          minHeight: "100vh"
+        }}
+      >
+        <div style={{ backgroundColor: "rgba(255,255,255,0.9)", padding: "30px", borderRadius: "20px" }}>
 
-    {/* Main Menu Section */}
-  <div 
-  className="container-fluid py-5"
-  style={{
-    backgroundImage: "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    minHeight: "100vh"
-  }}
->
-
-  {/* Overlay */}
-
-  
-  <div style={{ backgroundColor: "rgba(255,255,255,0.9)", padding: "30px", borderRadius: "20px" }}>
-
-    {/* search box */}
-    <div className="row justify-content-center mb-4">
-      <div className="col-md-6">
-        <input
-          type="text"
-          className="form-control shadow-sm"
-          placeholder="Search for a delicacy..."
-          style={{ borderRadius: "20px", padding: "12px 20px" }}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-    </div>
-
-    <h2 
-      className="text-center mb-5"
-      style={{ fontFamily: "serif", color: "#8B0000" }}
-    >
-      🍽️ Available Delicacies
-    </h2>
-
-    {loading && <Loader />}
-    {error && <div className="alert alert-danger text-center">{error}</div>}
-
-    <div className="row g-4">
-
-      {filterProducts.map((product) => (
-        <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={product.id}>
-
-          <div className="card h-100 border-0 shadow-lg rounded-4 overflow-hidden">
-
-            {/* Image */}
-            <img 
-              src={img_url + product.product_photo} 
-              alt={product.product_name}
-              className="w-100"
-              style={{ height: "200px", objectFit: "cover" }}
-            />
-
-            <div className="card-body d-flex flex-column">
-
-              <h5 
-                className="fw-bold"
-                style={{ color: "#8B0000" }}
-              >
-                {product.product_name}
-              </h5>
-
-              <p className="text-muted flex-grow-1">
-                {product.product_description.slice(0, 90)}...
-              </p>
-
-              <h4 className="fw-semibold text-dark mb-3">
-                KES {product.product_cost}
-              </h4>
-
-              <button 
-                className="btn mt-auto fw-semibold"
-                style={{
-                  backgroundColor: "#8B0000",
-                  color: "white",
-                  borderRadius: "10px"
-                }}
-                onClick={() => navigate("/reserve", { state: { product } })}
-              >
-                🍷 Order Now
-              </button>
-
+          {/* search */}
+          <div className="row justify-content-center mb-4">
+            <div className="col-md-6">
+              <input
+                type="text"
+                className="form-control shadow-sm"
+                placeholder="Search for a delicacy..."
+                style={{ borderRadius: "20px", padding: "12px 20px" }}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
           </div>
 
+          <h2 className="text-center mb-5" style={{ color: "#8B0000" }}>
+            🍽️ Available Delicacies
+          </h2>
+
+          <p className="text-center fw-bold">
+            🛒 Cart Items: {cart.length}
+          </p>
+
+          {loading && <Loader />}
+          {error && <div className="alert alert-danger text-center">{error}</div>}
+
+          <div className="row g-4">
+            {filterProducts.map((product) => (
+              <div className="col-md-3" key={product.id}>
+                <div className="card h-100 shadow">
+
+                  <img 
+                    src={img_url + product.product_photo}
+                    alt={product.product_name}
+                    style={{ height: "200px", objectFit: "cover" }}
+                  />
+
+                  <div className="card-body d-flex flex-column">
+                    <h5>{product.product_name}</h5>
+                    <p>{product.product_description.slice(0, 80)}...</p>
+                    <h4>KES {product.product_cost}</h4>
+
+                    <button onClick={() => addToCart(product)}>
+                      Add to Cart
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 🧾 CART DISPLAY */}
+          <div className="mt-5">
+            <h4>Your Cart</h4>
+
+            {cart.length === 0 ? (
+              <p>No items added</p>
+            ) : (
+              cart.map((item) => (
+                <div key={item.id} className="d-flex justify-content-between align-items-center mb-2">
+
+                  <div>
+                    <strong>{item.product_name}</strong><br />
+                    KES {item.product_cost}
+                  </div>
+
+                  <div>
+                    <button onClick={() => decreaseQty(item.id)}>-</button>
+                    <span style={{ margin: "0 10px" }}>{item.quantity}</span>
+                    <button onClick={() => increaseQty(item.id)}>+</button>
+                  </div>
+
+                  <button onClick={() => removeItem(item.product_id)}>
+                    🗑️
+                  </button>
+
+                </div>
+              ))
+            )}
+
+            <h5>Total: KES {total}</h5>
+          </div>
+
+          {/* ORDER BUTTON */}
+          <div className="d-grid mb-3">
+            <button 
+            className="btn btn-lg rounded-3 fw-semibold"
+            style={{
+              backgroundColor: "#8B0000",
+              color: "white"
+            }} onClick={handleOrderNow}>
+              🍷 Order Now</button>
+
+          
+      
         </div>
-      ))}
+        </div>
 
-    </div>
-
-  </div>
-  <FoodChatbot />
-</div>
-</>
+        <FoodChatbot />
+      </div>
+    </>
   );
-}
+};
+
 export default GetProducts;
