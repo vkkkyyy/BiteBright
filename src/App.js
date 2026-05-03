@@ -10,7 +10,7 @@ import Makepayment from './components/Makepayment';
 import Notfound from './components/Notfound';
 import Navbar from "./components/Navbar";
 import Footer from './components/Footer';
-
+import ReservationPage from "./components/ReservationPage";
 function App() {
   return (
     <Router>
@@ -30,6 +30,7 @@ function App() {
         <Route path='/addproducts' element={<Addproducts/>}/>
         <Route path='/makepayment' element={<Makepayment/>}/>                  
           <Route path='*' element={<Notfound/>}/>
+          <Route path="/reserve" element={<ReservationPage />} />
       </Routes>
     </div>
     <Footer /> 

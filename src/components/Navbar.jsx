@@ -4,7 +4,7 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-beige bg-beige sticky-top shadow-sm">
   <div className="container">
-    <Link className="navbar-brand text-light" to="/">Home</Link>
+    
     
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span className="navbar-toggler-icon"></span>
@@ -13,6 +13,9 @@ function Navbar() {
     <div className="collapse navbar-collapse" id="navbarNav">
       {/* Centered with mx-auto and added gap for spacing */}
       <ul className="navbar-nav mx-auto gap-3">
+        <li className="nav-item">
+          <Link className="nav-link text-light" to="/">Home</Link>
+        </li>
         <li className="nav-item">
           <Link className="nav-link text-light" to="/signin">Sign In</Link>
         </li>

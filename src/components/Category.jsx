@@ -6,7 +6,6 @@ const Category = ({ categories, selectedCategory, onChange }) => {
     <div className="mb-3"> 
     {/* label for the drop down */}
       <label htmlFor="category" className="fw-semibold" style={{ color: "#8B0000" }}>
-        📂 Product Category:
       </label>
 
       {/* The dropdown itself */}

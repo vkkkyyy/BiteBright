@@ -148,7 +148,7 @@ const GetProducts = () => {
                   color: "white",
                   borderRadius: "10px"
                 }}
-                onClick={() => navigate("/makepayment", { state: { product } })}
+                onClick={() => navigate("/reserve", { state: { product } })}
               >
                 🍷 Order Now
               </button>
