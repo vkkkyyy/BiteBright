@@ -12,9 +12,9 @@ const ReservationPage = () => {
   //reservation-null , setReservation - is the only function allowed to update that memory
   const [reservation, setReservation] = useState(null);
 
-//   to create random IDs so that the restaurant know its you - a timer is also added of 30 min
+//   to create random IDs so that the restaurant know its you - a timer is also added of 15 min
   const generateCode = () => {
-    return "BB-" + Math.floor(1000 + Math.random() * 18000);
+    return "BB-" + Math.floor(1000 + Math.random() * 9000);
   };
 
 //   onclicking the button , a table number and your code saves in setReservation
@@ -22,7 +22,7 @@ const ReservationPage = () => {
     const newReservation = {
       tableNumber: Math.floor(Math.random() * 10) + 1, // simple demo
       code: generateCode(),
-      timeLeft: 1800, // 30 minutes in seconds
+      timeLeft: 900, // 15 minutes in seconds
     };
 
     setReservation(newReservation);
@@ -30,11 +30,18 @@ const ReservationPage = () => {
 
   return (
     <div>
-      <h2>Reserve Your Table</h2>
+      <h2
+      style={{marginTop: "100px", marginBottom:"20px"}}> Reserve Your Table</h2>
       
       
             {!reservation ? (
-        <button onClick={handleReservation}>
+        <button 
+        className="btn btn-lg rounded-3 fw-semibold"
+          style={{
+            backgroundColor: "#008b38",
+            color: "white",
+            marginBottom:"100px",}}        
+        onClick={handleReservation}>
             {/*if no order  */}
           Pre-Order & Reserve Table
         </button>
@@ -51,6 +58,11 @@ const ReservationPage = () => {
 
           {/* go to payment with both cart + reservation */}
           <button
+          className="btn btn-lg rounded-3 fw-semibold"
+          style={{
+            backgroundColor: "#008b38",
+            color: "white"
+            }}
             onClick={() =>
               navigate("/makepayment", {
                 state: { cart, reservation },
@@ -61,11 +73,12 @@ const ReservationPage = () => {
           </button>
           <br></br>
           <button
+          className="btn btn-lg rounded-3 fw-semibold"          
           style={{
             marginTop: "10px",
-            backgroundColor: "gray",
+            backgroundColor: "rgba(252, 0, 0, 0.53)",
             color: "white",
-            borderRadius: "8px",}}
+          }}
             
             onClick={() => {
             setReservation(null);

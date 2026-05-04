@@ -40,7 +40,7 @@ const GetProducts = () => {
   });
 };
 
-  // ➕ increase quantity
+  //  increase quantity
   const increaseQty = (id) => {
     setCart(cart.map(item =>
       item.product_id === id
@@ -61,7 +61,7 @@ const GetProducts = () => {
   );
 };
 
-  // 🗑️ remove item
+  // remove item
   const removeItem = (id) => {
   setCart(cart.filter(item => item.product_id !== id));
 };
@@ -137,7 +137,7 @@ const GetProducts = () => {
           </h2>
 
           <p className="text-center fw-bold">
-            🛒 Cart Items: {cart.length}
+             Cart Items: {cart.length}
           </p>
 
           {loading && <Loader />}
@@ -155,11 +155,18 @@ const GetProducts = () => {
                   />
 
                   <div className="card-body d-flex flex-column">
-                    <h5>{product.product_name}</h5>
+                    <h4>{product.product_name}</h4>
+                    <h6>{product.category}</h6>
                     <p>{product.product_description.slice(0, 80)}...</p>
-                    <h4>KES {product.product_cost}</h4>
+                    <h6 className = 'brown'>KES {product.product_cost}</h6>
 
-                    <button onClick={() => addToCart(product)}>
+                    <button
+                    className="btn btn-lg rounded-3 fw-semibold"
+                    style={{
+                      backgroundColor: "#de9d9f",
+                      color: "black"
+                      }}
+                      onClick={() => addToCart(product)}>
                       Add to Cart
                     </button>
 
@@ -169,7 +176,7 @@ const GetProducts = () => {
             ))}
           </div>
 
-          {/* 🧾 CART DISPLAY */}
+          {/*CART DISPLAY */}
           <div className="mt-5">
             <h4>Your Cart</h4>
 
@@ -185,9 +192,9 @@ const GetProducts = () => {
                   </div>
 
                   <div>
-                    <button onClick={() => decreaseQty(item.id)}>-</button>
+                    <button onClick={() => decreaseQty(item.product_id)}>-</button>
                     <span style={{ margin: "0 10px" }}>{item.quantity}</span>
-                    <button onClick={() => increaseQty(item.id)}>+</button>
+                    <button onClick={() => increaseQty(item.product_id)}>+</button>
                   </div>
 
                   <button onClick={() => removeItem(item.product_id)}>

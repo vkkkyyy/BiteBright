@@ -31,9 +31,9 @@ const FoodChatbot = () => {
     { keywords: ["categories"], response: "Our menu includes appetizers, drinks, desserts, main course and specials." },
     { keywords: ["hours"], response: "We are open from 8 AM to 10 PM daily." },
     { keywords: ["location"], response: "We are located in Nairobi CBD." },
-    { keywords: ["delivery"], response: "Yes! We offer delivery services 🚚." },
+    { keywords: ["about bitebright"], response: "BiteBright is a modern food ordering website that simplifies how customers interact with restaurants. Users can explore a curated menu, customize their orders, and make secure payments through M-Pesa. The platform focuses on convenience, speed, and a smooth user experience from selection to checkout." },
     { keywords: ["payment"], response: "We accept M-Pesa payments." },
-    { keywords: ["order"], response: "You can place orders directly from our menu." },
+    { keywords: ["order"], response: "You can place orders directly from our menu.You are required to sign in" },
     { keywords: ["thanks"], response: "You're welcome 😊." },
     { keywords: ["bye"], response: "Goodbye! Enjoy your meal 🍽️." },
 
