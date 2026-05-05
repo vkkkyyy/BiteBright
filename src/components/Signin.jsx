@@ -33,7 +33,7 @@ const Signin = () => {
       formdata.append("password", password)
 
       //insert the axios for the response
-      const response = await axios.post("https://kbenkamotho.alwaysdata.net/api/signin", formdata);
+      const response = await axios.post("https://victoria.alwaysdata.net/api/signin", formdata);
 
       //set loading back to default
       setLoading("");
@@ -43,11 +43,11 @@ const Signin = () => {
 
         //setSuccess("Log in successful ")
 
+        //save user object to local storage 
+        localStorage.setItem("user",JSON.stringify(response.data.user));
+        
         ///if it is successful let the user be dirrected to another page
         navigate("/");
-
-        //save user object to local storage 
-        localStorage.setItem("user".JSON.stringify(response.data.user));
       }
       else{
         //user is not found , that means the credential entered on the form are incorrect

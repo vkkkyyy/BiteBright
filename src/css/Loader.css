@@ -136,3 +136,10 @@
 @keyframes lf2 { from { left: 200%; } to { left: -200%; opacity: 0; } }
 @keyframes lf3 { from { left: 200%; } to { left: -100%; opacity: 0; } }
 @keyframes lf4 { from { left: 200%; } to { left: -100%; opacity: 0; } }
+/* animation features */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-20px); }
+}

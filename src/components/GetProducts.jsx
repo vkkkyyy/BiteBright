@@ -21,8 +21,19 @@ const GetProducts = () => {
 
   const navigate = useNavigate();
 
+  // to add a message after adding an item in a cart
+  const [cartMessage, setCartMessage] = useState("");
+
   // to add cart
   const addToCart = (product) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+// one can order when signed in
+    if(!user){
+      alert("Please sign in to add items to cart");
+      navigate("/signin");
+    }
+
   setCart((prevCart) => {
     const existing = prevCart.find(
       item => item.product_id === product.product_id
@@ -38,6 +49,13 @@ const GetProducts = () => {
 
     return [...prevCart, { ...product, quantity: 1 }];
   });
+  // ✅ show message
+  setCartMessage(`${product.product_name} added to cart ✔️`);
+
+  // auto hide after 3 seconds
+  setTimeout(() => {
+    setCartMessage("");
+  }, 3000);
 };
 
   //  increase quantity
@@ -96,6 +114,15 @@ const GetProducts = () => {
 
   // order now
   const handleOrderNow = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    // one must sign in to order
+    if (!user){
+      alert("You must sign in to place an order");
+      navigate("/signin");
+      return;
+    }
+
+    // one must add at least one item to order
     if (cart.length === 0) {
       alert("Please add at least one item to cart");
       return;
@@ -103,10 +130,32 @@ const GetProducts = () => {
 
     navigate("/reserve", { state: { cart } });
   };
+  
 
   return (
     <>
       <Carousel />
+
+      {/* added to cart message decor */}
+      {cartMessage && (
+  <div
+    style={{
+      position: "fixed",
+      top: "20px",
+      right: "20px",
+      backgroundColor: "#28a745",
+      color: "white",
+      padding: "12px 20px",
+      borderRadius: "10px",
+      boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+      zIndex: 1000,
+      animation: "fadeInOut 3s ease-in-out"
+    }}
+  >
+    {cartMessage}
+  </div>
+  
+)}
 
       <div 
         className="container-fluid py-5"
@@ -136,8 +185,22 @@ const GetProducts = () => {
             🍽️ Available Delicacies
           </h2>
 
+          {/* cart message */}
+          {cartMessage && (
+            <div className="alert alert-success text-center">
+              {cartMessage}
+              
+            </div>
+)}
+
+          {/* cart: This is the array (list) of objects representing the products a user has added to their 
+          cart..reduce(): This is a powerful array method used to "boil down" an entire list into a single value (in this case, a total sum).
+          (sum, item) => sum + item.quantity: This is the "accumulator" logic.
+          sum: Keeps track of the running total.
+          item: Represents the current product the code is looking at as it loops through the list.It adds that specific item's quantity to the running sum., 
+          0: This tells the code to start counting at zero. Without this, the calculation might break if the cart is empty. */}
           <p className="text-center fw-bold">
-             Cart Items: {cart.length}
+             Cart Items: {cart.reduce((sum , item) => sum + item.quantity, 0)}
           </p>
 
           {loading && <Loader />}
@@ -145,7 +208,7 @@ const GetProducts = () => {
 
           <div className="row g-4">
             {filterProducts.map((product) => (
-              <div className="col-md-3" key={product.id}>
+              <div className="col-md-3" key={product.product_id}>
                 <div className="card h-100 shadow">
 
                   <img 
@@ -184,7 +247,7 @@ const GetProducts = () => {
               <p>No items added</p>
             ) : (
               cart.map((item) => (
-                <div key={item.id} className="d-flex justify-content-between align-items-center mb-2">
+                <div key={item.product_id} className="d-flex justify-content-between align-items-center mb-2">
 
                   <div>
                     <strong>{item.product_name}</strong><br />
