@@ -154,7 +154,7 @@ const GetProducts = () => {
   >
     {cartMessage}
   </div>
-  
+
 )}
 
       <div 
@@ -272,17 +272,42 @@ const GetProducts = () => {
           </div>
 
           {/* ORDER BUTTON */}
-          <div className="d-grid mb-3">
-            <button 
-            className="btn btn-lg rounded-3 fw-semibold"
-            style={{
-              backgroundColor: "#8B0000",
-              color: "white"
-            }} onClick={handleOrderNow}>
-              🍷 Order Now</button>
-
-          
-      
+          <div
+  style={{
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    zIndex: 1000
+  }}
+>
+  <div
+  style={{
+    position: "fixed",
+    bottom: "20px",
+    left: "20px",
+    zIndex: 1000
+  }}
+>
+  <button 
+    className="btn btn-lg fw-semibold shadow"
+    style={{
+      backgroundColor: "#8B0000",
+      color: "white",
+      borderRadius: "50px",
+      padding: "12px 25px",
+      textAlign: "left",
+      minWidth: "180px"
+    }}
+    onClick={handleOrderNow}
+  >
+    🍷 Order Now 
+    <div style={{ fontSize: "14px", marginTop: "5px", opacity: 0.9 }}>
+      Items: {cart.reduce((sum, item) => sum + item.quantity, 0)}
+      <br />
+      Total: KES {total}
+      </div>
+      </button>
+        </div>       
         </div>
         </div>
 
