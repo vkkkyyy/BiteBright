@@ -5,12 +5,17 @@ import Category from './Category'
 
 const Addproducts = () => {
 
+  const userRole = localStorage.getItem("role"); 
+
   //introduce the hooks
   const [product_name, setProductName]= useState("")
   const [product_description, setProductDescription]=useState("")
   const [product_cost, setProductCost]= useState("")
   const[product_photo, setProductPhoto]= useState("")
   const [selectedCategory,setSelectedCategory] = useState("")
+  
+  // Create a hook for the admin secret
+  const [adminSecret, setAdminSecret] = useState("")
 
    //Define the list to pass into the Category component
   const categoryList = ["Appetizers", "Main Course", "Desserts", "Drinks", "Specials"];
@@ -21,11 +26,20 @@ const Addproducts = () => {
   const[error , setError] = useState("")
 
 // create a function tha will handle the submit action
-  const handleSubmit = async (e) =>{
-    // prevent the site from reloading
-    e.preventDefault()
-    // setloading hook with a message (activate it)
-    setLoading(true)
+  const handleSubmit = async (e) =>{
+    // prevent the site from reloading
+    e.preventDefault()
+
+    
+    // This stops users right here if the secret is wrong
+    if (adminSecret !== "BiteBright2026") {
+      setError("⛔ Access Denied: Invalid Admin Secret Code.")
+      return; 
+    }
+
+    // setloading hook with a message (activate it)
+    setLoading(true)
+    setError("") // Clear previous errors
 
 try{
 //create a form data
@@ -38,6 +52,7 @@ formdata.append("product_cost" , product_cost);
 formdata.append("product_photo", product_photo);
 formdata.append("category", selectedCategory);
 
+// append the secret for the backend check (if you ever fix the PHP side)
 formdata.append("admin_secret", adminSecret);
 
 //interact with axios to help you use the method post
@@ -55,6 +70,7 @@ setProductDescription("");
 setProductCost("");
 setProductPhoto("");
 setSelectedCategory(""); 
+setAdminSecret(""); // Clear secret on success
 
 e.target.reset()//to clear the file and any other details
 
@@ -66,14 +82,23 @@ setTimeout(()=>{
 catch(error){
 
   //set loading the hook back to default 
-  setLoading(error)
+  setLoading(false)
  
   //update the setError with a message
   setError(error.message)
 }
 
 
-  }
+  }
+  if (userRole !== "admin" && userRole !== "Admin") { 
+    // This handles if you accidentally capitalized 'Admin' in the database
+    return (
+    <div className="container text-center mt-5 py-5">
+       {/* Access Denied message */}
+    </div>
+  );
+}
+
 
 
   return (
@@ -124,7 +149,7 @@ catch(error){
               onChange={setSelectedCategory} 
             />
 
-        <div className="mb-3">
+        <div className="mb-3 mt-3">
           <input
             type="text"
             placeholder="📝 Meal Description"
@@ -158,10 +183,13 @@ catch(error){
             onChange={(e)=>setProductPhoto(e.target.files[0])}
           />
         </div>
+
+        {/* Input field for the secret key */}
         <div className="mb-3">
           <input 
           type="password"
-          placeholder="🔑 Admin Secret Code"   className="form-control rounded-3"
+          placeholder="🔑 Admin Secret Code"   
+          className="form-control rounded-3"
           required
           value={adminSecret}
           onChange={(e) => setAdminSecret(e.target.value)}/>
