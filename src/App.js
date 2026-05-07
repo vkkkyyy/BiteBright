@@ -28,9 +28,9 @@ function App() {
         <Route path='/signup' element={<Signup/>}/>  
         <Route path='/signin' element={<Signin/>}/>
         <Route path='/addproducts' element={<Addproducts/>}/>
-        <Route path='/makepayment' element={<Makepayment/>}/>                  
-          <Route path='*' element={<Notfound/>}/>
-          <Route path="/reserve" element={<ReservationPage />} />
+        <Route path='/makepayment' element={<Makepayment/>}/>
+        <Route path='*' element={<Notfound/>}/>
+        <Route path="/reserve" element={<ReservationPage />} />
       </Routes>
     </div>
     <Footer /> 

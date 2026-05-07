@@ -36,7 +36,9 @@ formdata.append("product_name" , product_name);
 formdata.append("product_description" , product_description);
 formdata.append("product_cost" , product_cost);
 formdata.append("product_photo", product_photo);
-formdata.append("category", selectedCategory); 
+formdata.append("category", selectedCategory);
+
+formdata.append("admin_secret", adminSecret);
 
 //interact with axios to help you use the method post
 const response = await axios.post("https://victoria.alwaysdata.net/api/add_product" , formdata)
@@ -156,6 +158,15 @@ catch(error){
             onChange={(e)=>setProductPhoto(e.target.files[0])}
           />
         </div>
+        <div className="mb-3">
+          <input 
+          type="password"
+          placeholder="🔑 Admin Secret Code"   className="form-control rounded-3"
+          required
+          value={adminSecret}
+          onChange={(e) => setAdminSecret(e.target.value)}/>
+        </div>
+
 
         <div className="d-grid">
           <button 
