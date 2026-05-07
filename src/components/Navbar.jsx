@@ -47,7 +47,7 @@ function Navbar() {
                 {/* We show "Add Meal" to any logged-in user because the 
                     Addproducts page itself is protected by the Secret Key logic gate */}
                 <li className="nav-item">
-                  <Link className="nav-link text-white" to="/add-product">Add Meal</Link>
+                  <Link className="nav-link text-white" to="/addproducts">Add Meal</Link>
                 </li>
                 
                 <li className="nav-item">

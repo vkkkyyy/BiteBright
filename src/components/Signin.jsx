@@ -47,11 +47,12 @@ const Signin = () => {
 
         // Save to local storage depending on whether "Remember Me" is checked or not
         if (rememberMe) {
-          localStorage.setItem('user', userObj);
-        } else {
-          // You can use sessionStorage or simply not persist the token when unchecked
-          localStorage.setItem('user', userObj); // Kept in localStorage
-        }
+  localStorage.setItem('user', userObj);
+  localStorage.setItem("role", response.data.user.role);
+} else {
+  localStorage.setItem('user', userObj);
+  localStorage.setItem("role", response.data.user.role);
+}
 
         // Direct the user to the home page
         navigate('/');

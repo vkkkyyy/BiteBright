@@ -93,10 +93,11 @@ catch(error){
   if (userRole !== "admin" && userRole !== "Admin") { 
     // This handles if you accidentally capitalized 'Admin' in the database
     return (
-    <div className="container text-center mt-5 py-5">
-       {/* Access Denied message */}
-    </div>
-  );
+  <div className="container text-center mt-5 py-5">
+    <h2>⛔ Access Denied</h2>
+    <p>Only admins can add meals.</p>
+  </div>
+);
 }
 
 
